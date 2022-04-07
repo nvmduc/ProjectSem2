@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row contact-sec">
                 <div class="col-md-5 col-lg-5">
-                    <h2>Insurance<span>Press</span></h2>
+                    <h2><span>Car</span>Insurance</h2>
                     <div class="row">
                         <div class="col-sm-6">
                             <p>E104 Dharti -2 , Nr Silverstar Mall Chandlodia - Ahmedabad

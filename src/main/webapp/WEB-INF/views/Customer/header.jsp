@@ -65,10 +65,10 @@
                 <div class="collapse navbar-collapse navbar-main-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="test1">Home</a>
+                            <a href="index">Home</a>
                         </li>
                         <li>
-                            <a href="#product">Product Insurance</a>
+                            <a href="products">Product Insurance</a>
                         </li>
                         <li>
                             <a href="blog-details.html">Blog</a>
