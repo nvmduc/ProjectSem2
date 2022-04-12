@@ -20,4 +20,9 @@ public class Test {
 	public String products(Model model) {
 		return "Customer/products";
 	}
+
+	@RequestMapping("indexAdmin")
+	public String indexAdmin(Model model) {
+		return "Admin/index";
+	}
 }
