@@ -1,4 +1,4 @@
-drop DATABASE Project_Sem2
+CREATE DATABASE Project_Sem2
 GO
 USE Project_Sem2
 GO
@@ -22,16 +22,16 @@ GO
 CREATE TABLE Role(
     idRole INT IDENTITY PRIMARY KEY,
     nameRole nvarchar(100),
-    statusAccount bit DEFAULT(1),
-    created_at_Account DATETIME DEFAULT(GETDATE()),
+    statusRole bit DEFAULT(1),
+    created_at_Role DATETIME DEFAULT(GETDATE()),
 )
 GO
 CREATE TABLE Account_Role(
     idAccountRole INT IDENTITY PRIMARY KEY,
     idRole INT,
     idAccount INT,
-    statusAccount bit DEFAULT(1),
-    created_at_Account DATETIME DEFAULT(GETDATE()),
+    status bit DEFAULT(1),
+    created_at DATETIME DEFAULT(GETDATE()),
 )
 GO
 ALTER TABLE Account_Role ADD FOREIGN KEY (idRole) REFERENCES Role(idRole)
@@ -66,9 +66,11 @@ CREATE TABLE DetailPackage(
     descriptionPackage TEXT,
     insuranceFees FLOAT,
     compensation FLOAT,
-    statusPackage bit DEFAULT(1),
-    created_at_Package DATETIME DEFAULT(GETDATE()),
+    status bit DEFAULT(1),
+    created_at DATETIME DEFAULT(GETDATE()),
 )
+ALTER TABLE DetailPackage ADD FOREIGN KEY (idPackage) REFERENCES InsurancePackages(idPackage)
+GO
 CREATE TABLE Evaluate(
     idEvaluate INT IDENTITY PRIMARY KEY,
     idAccount INT,
@@ -79,9 +81,9 @@ CREATE TABLE Evaluate(
 GO
 ALTER TABLE Evaluate ADD FOREIGN KEY (idAccount) REFERENCES Account(idAccount);
 GO
-CREATE TABLE OrderInsurance(
+create TABLE OrderInsurance(
     idOrder INT IDENTITY PRIMARY KEY,
-    idInsurancePackage INT,
+    idPackage INT,
     idInformationCar INT,
     idAccount INT,
     numberYearInsurance INT,
@@ -89,7 +91,7 @@ CREATE TABLE OrderInsurance(
     created_at_Order DATETIME DEFAULT(GETDATE()),
 )
 GO
-ALTER TABLE OrderInsurance ADD FOREIGN KEY (idInsurancePackage) REFERENCES InsurancePackage(idPackage);
+ALTER TABLE OrderInsurance ADD FOREIGN KEY (idPackage) REFERENCES InsurancePackages(idPackage);
 ALTER TABLE OrderInsurance ADD FOREIGN KEY (idInformationCar) REFERENCES InformationCar(idInformationCar);
 ALTER TABLE OrderInsurance ADD FOREIGN KEY (idAccount) REFERENCES Account(idAccount);
 GO
@@ -101,10 +103,10 @@ CREATE TABLE ContractInsurance(
     idPackage INT,
     dayStartInsurance DATETIME,
     dayEndInsurance DATETIME,
-    statusOrder bit DEFAULT(1),
-    created_at_Order DATETIME DEFAULT(GETDATE()),
+    status bit DEFAULT(1),
+    created_at DATETIME DEFAULT(GETDATE()),
 )
 ALTER TABLE ContractInsurance ADD FOREIGN KEY (idOrder) REFERENCES OrderInsurance(idOrder);
-ALTER TABLE ContractInsurance ADD FOREIGN KEY (idAccount) REFERENCES InformationCar(idAccount);
-ALTER TABLE ContractInsurance ADD FOREIGN KEY (idInformationCar) REFERENCES Account(idInformationCar);
-ALTER TABLE ContractInsurance ADD FOREIGN KEY (idPackage) REFERENCES Account(idPackage);
+ALTER TABLE ContractInsurance ADD FOREIGN KEY (idAccount) REFERENCES Account(idAccount);
+ALTER TABLE ContractInsurance ADD FOREIGN KEY (idInformationCar) REFERENCES InformationCar(idInformationCar);
+ALTER TABLE ContractInsurance ADD FOREIGN KEY (idPackage) REFERENCES InsurancePackages(idPackage);
