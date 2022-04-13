@@ -1,18 +1,12 @@
-CREATE DATABASE Project_Sem2
+drop DATABASE Project_Sem2
 GO
 USE Project_Sem2
 GO
 CREATE TABLE Account(
     idAccount INT IDENTITY PRIMARY KEY,
-    nameAccount varchar(100) NOT NULL,
-    emailAccount varchar(100) NOT NULL,
-    passwordAccount varchar(255) NOT NULL,
-    statusAccount bit DEFAULT(1),
-    created_at_Account DATETIME DEFAULT(GETDATE()),
-)
-GO
-CREATE TABLE DetailAccound(
-    idDetailAccount INT IDENTITY PRIMARY KEY,
+    name varchar(100) NOT NULL,
+    email varchar(100) NOT NULL,
+    password varchar(255) NOT NULL,
     avatar varchar(255) DEFAULT('https://anhdep123.com/wp-content/uploads/2020/11/avatar-facebook-mac-dinh-nam.jpeg'),
     birthDay DATETIME NOT NULL,
     city nvarchar(255) NOT NULL,
@@ -21,64 +15,44 @@ CREATE TABLE DetailAccound(
     street NVARCHAR(100) NOT NULL,
     apartmentNumber varchar(100) NOT NULL,
     zipcode varchar(50) NOT NULL,
+    statusAccount bit DEFAULT(1),
+    created_at_Account DATETIME DEFAULT(GETDATE()),
+)
+GO
+CREATE TABLE Role(
+    idRole INT IDENTITY PRIMARY KEY,
+    nameRole nvarchar(100),
+    statusAccount bit DEFAULT(1),
+    created_at_Account DATETIME DEFAULT(GETDATE()),
+)
+GO
+CREATE TABLE Account_Role(
+    idAccountRole INT IDENTITY PRIMARY KEY,
+    idRole INT,
     idAccount INT,
-    status bit DEFAULT(1),
-    created_at DATETIME DEFAULT(GETDATE()),
+    statusAccount bit DEFAULT(1),
+    created_at_Account DATETIME DEFAULT(GETDATE()),
 )
 GO
-ALTER TABLE DetailAccound ADD FOREIGN KEY (idAccount) REFERENCES Account(idAccount);
-GO
-CREATE TABLE YearOfManufacture(
-    idYear INT IDENTITY PRIMARY KEY,
-    yearName INT NOT NULL,
-    statusYearOfManufacture bit DEFAULT(1),
-    created_at_Year DATETIME DEFAULT(GETDATE()),
-)
-GO
-CREATE TABLE CarCompany(
-    idCarCompany INT IDENTITY PRIMARY KEY,
-    nameCarCompany nvarchar(100) NOT NULL,
-    idYear INT,
-    statusCarCompany bit DEFAULT(1),
-    created_at_CarCompany DATETIME DEFAULT(GETDATE()),
-)
-GO
-ALTER TABLE CarCompany ADD FOREIGN KEY (idYear) REFERENCES YearOfManufacture(idYear);
-GO
-CREATE TABLE CarBrand(
-    idCarBrand INT IDENTITY PRIMARY KEY,
-    nameCarBrand NVARCHAR(50),
-    idCarCompany INT,
-    statusCarBrand bit DEFAULT(1),
-    created_at_CarBrand DATETIME DEFAULT(GETDATE()),
-)
-
-CREATE TABLE CarType(
-    idCarType INT IDENTITY PRIMARY KEY,
-    nameCarType NVARCHAR(100),
-    idCarBrand INT,
-    statusCarType bit DEFAULT(1),
-    created_at_CarType DATETIME DEFAULT(GETDATE()),
-)
-GO
-ALTER TABLE CarType ADD FOREIGN KEY (idCarBrand) REFERENCES CarBrand(idCarBrand);
+ALTER TABLE Account_Role ADD FOREIGN KEY (idRole) REFERENCES Role(idRole)
+ALTER TABLE Account_Role ADD FOREIGN KEY (idAccount) REFERENCES Account(idAccount)
 GO
 CREATE TABLE InformationCar(
     idInformationCar INT IDENTITY PRIMARY KEY,
-    idYear INT,
-    idCarCompany INT,
-    idCarBrand INT,
-    idCarType INT,
+    carCompany NVARCHAR(100) NOT NULL,
+    carLine NVARCHAR(50) NOT NULL,
+    carType NVARCHAR(50) NOT NULL,
+    yearOfManufacture INT NOT NULL,
+    frameNumber VARCHAR(100) NOT NULL,
+    engineNumber VARCHAR(100) NOT NULL,
+    seaOfControl VARCHAR(20) NOT NULL,
+    idAccount INT,
     statusInformationCar bit DEFAULT(1),
     created_at_InformationCar DATETIME DEFAULT(GETDATE()),
 )
+ALTER TABLE InformationCar ADD FOREIGN KEY (idAccount) REFERENCES Account(idAccount)
 GO
-ALTER TABLE InformationCar ADD FOREIGN KEY (idYear) REFERENCES YearOfManufacture(idYear);
-ALTER TABLE InformationCar ADD FOREIGN KEY (idCarCompany) REFERENCES CarCompany(idCarCompany);
-ALTER TABLE InformationCar ADD FOREIGN KEY (idCarBrand) REFERENCES CarBrand(idCarBrand);
-ALTER TABLE InformationCar ADD FOREIGN KEY (idCarType) REFERENCES CarType(idCarType);
-GO
-CREATE TABLE InsurancePackage(
+CREATE TABLE InsurancePackages(
     idPackage INT IDENTITY PRIMARY KEY,
     namePackage NVARCHAR(100) NOT NULL,
     imagePackage varchar(255) NOT NULL,
@@ -86,6 +60,15 @@ CREATE TABLE InsurancePackage(
     created_at_Package DATETIME DEFAULT(GETDATE()),
 )
 GO
+CREATE TABLE DetailPackage(
+    idDetailPackage INT IDENTITY PRIMARY KEY,
+    idPackage INT,
+    descriptionPackage TEXT,
+    insuranceFees FLOAT,
+    compensation FLOAT,
+    statusPackage bit DEFAULT(1),
+    created_at_Package DATETIME DEFAULT(GETDATE()),
+)
 CREATE TABLE Evaluate(
     idEvaluate INT IDENTITY PRIMARY KEY,
     idAccount INT,
@@ -101,6 +84,7 @@ CREATE TABLE OrderInsurance(
     idInsurancePackage INT,
     idInformationCar INT,
     idAccount INT,
+    numberYearInsurance INT,
     statusOrder bit DEFAULT(1),
     created_at_Order DATETIME DEFAULT(GETDATE()),
 )
@@ -108,4 +92,19 @@ GO
 ALTER TABLE OrderInsurance ADD FOREIGN KEY (idInsurancePackage) REFERENCES InsurancePackage(idPackage);
 ALTER TABLE OrderInsurance ADD FOREIGN KEY (idInformationCar) REFERENCES InformationCar(idInformationCar);
 ALTER TABLE OrderInsurance ADD FOREIGN KEY (idAccount) REFERENCES Account(idAccount);
-
+GO
+CREATE TABLE ContractInsurance(
+    idContract VARCHAR(50) NOT NULL,
+    idOrder INT,
+    idAccount INT,
+    idInformationCar INT,
+    idPackage INT,
+    dayStartInsurance DATETIME,
+    dayEndInsurance DATETIME,
+    statusOrder bit DEFAULT(1),
+    created_at_Order DATETIME DEFAULT(GETDATE()),
+)
+ALTER TABLE ContractInsurance ADD FOREIGN KEY (idOrder) REFERENCES OrderInsurance(idOrder);
+ALTER TABLE ContractInsurance ADD FOREIGN KEY (idAccount) REFERENCES InformationCar(idAccount);
+ALTER TABLE ContractInsurance ADD FOREIGN KEY (idInformationCar) REFERENCES Account(idInformationCar);
+ALTER TABLE ContractInsurance ADD FOREIGN KEY (idPackage) REFERENCES Account(idPackage);
