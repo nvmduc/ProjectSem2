@@ -7,12 +7,14 @@ import Insurance.Entities.ContractInsurance;
 public interface ContractInsuranceDAO {
 	public List<ContractInsurance> getAllContractInsurance();
 
-	public ContractInsurance getInsurancePackagesById(Integer idContract);
+	public ContractInsurance getContractInsuranceById(String idContract);
 
 	public boolean insertContractInsurance(ContractInsurance contract);
 
 	public boolean updateContractInsurance(ContractInsurance contract);
 
-	public boolean deleteContractInsurance(Integer idContract);
+	public boolean deleteContractInsurance(String idContract);
+	
+	public boolean searchContractInsuranceById(String idContract);
 
 }

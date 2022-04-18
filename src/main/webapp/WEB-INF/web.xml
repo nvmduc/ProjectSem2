@@ -5,31 +5,15 @@
 	version="4.0">
 	<display-name>ProjectSem2_Insurance</display-name>
 	<servlet>
-		<servlet-name>projectspringweb</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-name>project_insurance</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/config/spring-config.xml</param-value>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>Insurance.Service</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>projectspringweb</servlet-name>
-		<url-pattern>/</url-pattern>
+		<servlet-name>project_insurance</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 </web-app>

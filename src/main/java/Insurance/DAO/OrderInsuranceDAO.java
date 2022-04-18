@@ -14,6 +14,4 @@ public interface OrderInsuranceDAO {
 	public boolean updateOrderInsurance(OrderInsurance orderInsurance);
 
 	public boolean deleteOrderInsurance(Integer idOrder);
-
-	public List<OrderInsurance> searchOrderInsuranceName(String namePackage);
 }

@@ -7,7 +7,7 @@ import Insurance.Entities.Account_Role;
 public interface Account_RoleDAO {
 	public List<Account_Role> getAllAccount_Role();
 
-	public Account_RoleDAO getAccount_RoleById(Integer idAccountRole);
+	public Account_Role getAccount_RoleById(Integer idAccountRole);
 
 	public boolean insertAccount_Role(Account_Role accountRole);
 
