@@ -1,5 +1,8 @@
 package Insurance.DAO.Impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -41,6 +44,9 @@ public class ContractInsuranceDAOImpl implements ContractInsuranceDAO {
 	@Override
 	public boolean insertContractInsurance(ContractInsurance contract) {
 		// TODO Auto-generated method stub
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        contract.setCreated_at(date);
 		try {
 			ss.beginTransaction();
 			ss.save(contract);

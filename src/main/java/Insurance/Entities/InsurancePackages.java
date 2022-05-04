@@ -18,7 +18,7 @@ public class InsurancePackages {
 	@Id
 	@Column(name = "idPackage")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPackage;
+	private Integer idPackage;
 	@NotEmpty(message = "Name Package is emplty")
 	@Column(name = "namePackage")
 	private String namePackage;
@@ -33,7 +33,7 @@ public class InsurancePackages {
 	@OneToMany(mappedBy = "objInsurancePackages_Order")
 	private Set<OrderInsurance> listInsurancePackages_Order;
 
-	@OneToMany(mappedBy = "objDetailPackage")
+	@OneToMany(mappedBy = "objInformation_Detail")
 	private Set<DetailPackage> listDetailPackage_Order;
 
 	public InsurancePackages() {

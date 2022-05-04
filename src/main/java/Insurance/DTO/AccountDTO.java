@@ -13,6 +13,8 @@ public class AccountDTO {
 	private String email;
 	@NotEmpty(message = "Password is emplty")
 	private String password;
+	@NotEmpty(message = "Phone is not null")
+	private String phone;
 	private String avatar;
 	@NotNull(message = "Birth Day is not null")
 	private Date birthDay;
@@ -36,7 +38,8 @@ public class AccountDTO {
 	}
 	public AccountDTO(Integer idAccount, @NotEmpty(message = "Name is emplty") String name,
 			@NotEmpty(message = "Email is emplty") String email,
-			@NotEmpty(message = "Password is emplty") String password, String avatar,
+			@NotEmpty(message = "Password is emplty") String password,
+			@NotEmpty(message = "Phone is not null") String phone, String avatar,
 			@NotNull(message = "Birth Day is not null") Date birthDay,
 			@NotEmpty(message = "City is not emplty") String city,
 			@NotEmpty(message = "District is not emplty") String district,
@@ -50,6 +53,7 @@ public class AccountDTO {
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.phone = phone;
 		this.avatar = avatar;
 		this.birthDay = birthDay;
 		this.city = city;
@@ -84,6 +88,12 @@ public class AccountDTO {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getAvatar() {
 		return avatar;

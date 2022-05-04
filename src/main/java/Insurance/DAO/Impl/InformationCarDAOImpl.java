@@ -1,5 +1,8 @@
 package Insurance.DAO.Impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -41,6 +44,9 @@ public class InformationCarDAOImpl implements InformationCarDAO {
 	@Override
 	public boolean insertInformationCar(InformationCar informationCar) {
 		// TODO Auto-generated method stub
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        informationCar.setCreated_at_InformationCar(date);
 		try {
 			ss.beginTransaction();
 			ss.save(informationCar);

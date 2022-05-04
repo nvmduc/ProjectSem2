@@ -1,5 +1,8 @@
 package Insurance.DAO.Impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -28,7 +31,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public Account getAccountById(Integer idAccount) {
 		// TODO Auto-generated method stub
 		try {
-			Account account = ss.get(Account.class, "idAccount");
+			Account account = ss.get(Account.class, idAccount);
 			return account;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -41,6 +44,9 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public boolean insertAccount(Account account) {
 		// TODO Auto-generated method stub
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        account.setCreated_at_Account(date);
 		try {
 			ss.beginTransaction();
 			ss.save(account);
@@ -107,7 +113,7 @@ public class AccountDAOImpl implements AccountDAO {
 		return null;
 	}
 	public static void main(String[] args) {
-		System.out.println(new AccountDAOImpl().getAllAccount());
+		System.out.println(new AccountDAOImpl().getAllAccount().size());
 	}
 
 }

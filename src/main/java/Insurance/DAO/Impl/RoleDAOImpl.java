@@ -1,5 +1,8 @@
 package Insurance.DAO.Impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -43,6 +46,9 @@ public class RoleDAOImpl implements RoleDAO {
 	@Override
 	public boolean insertRole(Role role) {
 		// TODO Auto-generated method stub
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        role.setCreated_at_Role(date);
 		try {
 			ss.beginTransaction();
 			ss.save(role);
@@ -60,6 +66,9 @@ public class RoleDAOImpl implements RoleDAO {
 	@Override
 	public boolean updateRole(Role role) {
 		// TODO Auto-generated method stub
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        role.setCreated_at_Role(date);
 		try {
 			ss.beginTransaction();
 			ss.update(role);
@@ -79,8 +88,9 @@ public class RoleDAOImpl implements RoleDAO {
 		// TODO Auto-generated method stub
 		try {
 			ss.beginTransaction();
-			ss.delete(getRoleById(idRole));
+			Integer id = ss.createQuery("delete from Role where idRole= :idRole").setParameter("idRole", idRole).executeUpdate();
 			ss.getTransaction().commit();
+			if(id>0)
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception

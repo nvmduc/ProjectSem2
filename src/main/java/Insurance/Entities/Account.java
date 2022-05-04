@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -29,6 +31,8 @@ public class Account {
 	@NotEmpty(message = "Password is emplty")
 	@Column(name = "password")
 	private String password;
+	@Column(name = "phone")
+	private String phone;
 	@Column(name = "avatar")
 	private String avatar;
 	@NotNull(message = "Birth Day is not null")
@@ -56,15 +60,16 @@ public class Account {
 	private Integer statusAccount;
 	@Column(name = "created_at_Account")
 	private Date created_at_Account;
-
+//
+//	@ManyToOne
+//	@JoinColumn(name = "idRole", referencedColumnName = "idRole")
+//	private Role objRole_Account;
+	
 	@OneToMany(mappedBy = "objAccount_Role")
 	private Set<Account_Role> listAccount;
 
 	@OneToMany(mappedBy = "objAccount_InformationCar")
 	private Set<InformationCar> listAccount_InformationCar;
-
-	@OneToMany(mappedBy = "objEvaluate")
-	private Set<Evaluate> listAccount_Evaluate;
 
 	@OneToMany(mappedBy = "objAccount_OrderInsurance")
 	private Set<OrderInsurance> listAccount_OrderInsurance;
@@ -79,7 +84,7 @@ public class Account {
 
 	public Account(Integer idAccount, @NotEmpty(message = "Name is emplty") String name,
 			@NotEmpty(message = "Email is emplty") String email,
-			@NotEmpty(message = "Password is emplty") String password, String avatar,
+			@NotEmpty(message = "Password is emplty") String password, String phone, String avatar,
 			@NotNull(message = "Birth Day is not null") Date birthDay,
 			@NotEmpty(message = "City is not emplty") String city,
 			@NotEmpty(message = "District is not emplty") String district,
@@ -88,13 +93,13 @@ public class Account {
 			@NotEmpty(message = "ApartmentNumber is not emplty") String apartmentNumber,
 			@NotEmpty(message = "Zipcode is not emplty") String zipcode, Integer statusAccount, Date created_at_Account,
 			Set<Account_Role> listAccount, Set<InformationCar> listAccount_InformationCar,
-			Set<Evaluate> listAccount_Evaluate, Set<OrderInsurance> listAccount_OrderInsurance,
-			Set<ContractInsurance> listAccount_Contract) {
+			Set<OrderInsurance> listAccount_OrderInsurance, Set<ContractInsurance> listAccount_Contract) {
 		super();
 		this.idAccount = idAccount;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.phone = phone;
 		this.avatar = avatar;
 		this.birthDay = birthDay;
 		this.city = city;
@@ -107,7 +112,6 @@ public class Account {
 		this.created_at_Account = created_at_Account;
 		this.listAccount = listAccount;
 		this.listAccount_InformationCar = listAccount_InformationCar;
-		this.listAccount_Evaluate = listAccount_Evaluate;
 		this.listAccount_OrderInsurance = listAccount_OrderInsurance;
 		this.listAccount_Contract = listAccount_Contract;
 	}
@@ -142,6 +146,14 @@ public class Account {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getAvatar() {
@@ -240,14 +252,6 @@ public class Account {
 		this.listAccount_InformationCar = listAccount_InformationCar;
 	}
 
-	public Set<Evaluate> getListAccount_Evaluate() {
-		return listAccount_Evaluate;
-	}
-
-	public void setListAccount_Evaluate(Set<Evaluate> listAccount_Evaluate) {
-		this.listAccount_Evaluate = listAccount_Evaluate;
-	}
-
 	public Set<OrderInsurance> getListAccount_OrderInsurance() {
 		return listAccount_OrderInsurance;
 	}
@@ -264,4 +268,5 @@ public class Account {
 		this.listAccount_Contract = listAccount_Contract;
 	}
 
+	
 }
