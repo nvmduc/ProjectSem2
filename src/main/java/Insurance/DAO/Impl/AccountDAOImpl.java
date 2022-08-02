@@ -83,8 +83,9 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		try {
 			ss.beginTransaction();
-			ss.delete(getAccountById(idAccount));
-			ss.getTransaction().commit();;
+			Integer idP = ss.createQuery("update Account set statusAccount = 0 where idAccount= :idAccount").setParameter("idAccount", idAccount).executeUpdate();
+			ss.getTransaction().commit();
+			if (idP>0)
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -112,6 +113,7 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		return null;
 	}
+	
 	public static void main(String[] args) {
 		System.out.println(new AccountDAOImpl().getAllAccount().size());
 	}

@@ -26,12 +26,27 @@ public class InformationCarDAOImpl implements InformationCarDAO {
 		}
 		return null;
 	}
-
+	
+	@Override
+	public List<InformationCar> getCarByAccountId(Integer idAccount) {
+		try {
+			List list = ss.createQuery("from InformationCar where idAccount = :idAccount")
+					.setParameter("idAccount", idAccount).list();
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ss.close();
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public InformationCar getInformationCarById(Integer idInformationCar) {
 		// TODO Auto-generated method stub
 		try {
-			InformationCar inforCar = ss.get(InformationCar.class, "idInformationCar");
+			InformationCar inforCar = ss.get(InformationCar.class, idInformationCar);
 			return inforCar;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -83,7 +98,7 @@ public class InformationCarDAOImpl implements InformationCarDAO {
 		// TODO Auto-generated method stub
 		try {
 			ss.beginTransaction();
-			ss.delete(getInformationCarById(idInformationCar));
+			Integer id = ss.createQuery("update InformationCar set statusInformationCar = 0 where idInformationCar= :idInformationCar").setParameter("idInformationCar", idInformationCar).executeUpdate();
 			ss.getTransaction().commit();
 			return true;
 		} catch (Exception e) {

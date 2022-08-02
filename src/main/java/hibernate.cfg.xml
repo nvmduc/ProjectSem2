@@ -2,21 +2,20 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.password">Nvmduc@123</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=Project_Sem2</property>
-		<property name="hibernate.connection.username">sa</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.SQLServer2008Dialect</property>
-		<property name="hibernate.show_sql">true</property>
-		<property name="hibernate.current_session_context_class">thread</property>
-		<mapping class="Insurance.Entities.Account" />
-		<mapping class="Insurance.Entities.Role" />
-		<mapping class="Insurance.Entities.Account_Role" />
-		<mapping class="Insurance.Entities.ContractInsurance" />
-		<mapping class="Insurance.Entities.DetailPackage" />
-		<mapping class="Insurance.Entities.InformationCar" />
-		<mapping class="Insurance.Entities.InsurancePackages" />
-		<mapping class="Insurance.Entities.OrderInsurance" />
-	</session-factory>
+ <session-factory name="">
+  <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+  <property name="hibernate.connection.password">Nvmduc@123</property>
+  <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=Project_Sem2</property>
+  <property name="hibernate.connection.username">sa</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.SQLServer2008Dialect</property>
+  <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <mapping class="Insurance.Entities.Account"/>
+  <mapping class="Insurance.Entities.ContractInsurance"/>
+  <mapping class="Insurance.Entities.DetailPackage"/>
+  <mapping class="Insurance.Entities.InformationCar"/>
+  <mapping class="Insurance.Entities.InsurancePackages"/>
+  <mapping class="Insurance.Entities.OrderInsurance"/>
+  <mapping class="Insurance.Entities.Banner"/>
+ </session-factory>
 </hibernate-configuration>

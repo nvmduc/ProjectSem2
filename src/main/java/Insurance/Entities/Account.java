@@ -56,18 +56,13 @@ public class Account {
 	@NotEmpty(message = "Zipcode is not emplty")
 	@Column(name = "zipcode")
 	private String zipcode;
+	@Column(name = "role")
+	private Integer role;
 	@Column(name = "statusAccount")
 	private Integer statusAccount;
 	@Column(name = "created_at_Account")
 	private Date created_at_Account;
-//
-//	@ManyToOne
-//	@JoinColumn(name = "idRole", referencedColumnName = "idRole")
-//	private Role objRole_Account;
 	
-	@OneToMany(mappedBy = "objAccount_Role")
-	private Set<Account_Role> listAccount;
-
 	@OneToMany(mappedBy = "objAccount_InformationCar")
 	private Set<InformationCar> listAccount_InformationCar;
 
@@ -91,8 +86,8 @@ public class Account {
 			@NotEmpty(message = "Wards is not emplty") String wards,
 			@NotEmpty(message = "Street is not emplty") String street,
 			@NotEmpty(message = "ApartmentNumber is not emplty") String apartmentNumber,
-			@NotEmpty(message = "Zipcode is not emplty") String zipcode, Integer statusAccount, Date created_at_Account,
-			Set<Account_Role> listAccount, Set<InformationCar> listAccount_InformationCar,
+			@NotEmpty(message = "Zipcode is not emplty") String zipcode, Integer role, Integer statusAccount,
+			Date created_at_Account, Set<InformationCar> listAccount_InformationCar,
 			Set<OrderInsurance> listAccount_OrderInsurance, Set<ContractInsurance> listAccount_Contract) {
 		super();
 		this.idAccount = idAccount;
@@ -108,9 +103,9 @@ public class Account {
 		this.street = street;
 		this.apartmentNumber = apartmentNumber;
 		this.zipcode = zipcode;
+		this.role = role;
 		this.statusAccount = statusAccount;
 		this.created_at_Account = created_at_Account;
-		this.listAccount = listAccount;
 		this.listAccount_InformationCar = listAccount_InformationCar;
 		this.listAccount_OrderInsurance = listAccount_OrderInsurance;
 		this.listAccount_Contract = listAccount_Contract;
@@ -220,6 +215,14 @@ public class Account {
 		this.zipcode = zipcode;
 	}
 
+	public Integer getRole() {
+		return role;
+	}
+
+	public void setRole(Integer role) {
+		this.role = role;
+	}
+
 	public Integer getStatusAccount() {
 		return statusAccount;
 	}
@@ -234,14 +237,6 @@ public class Account {
 
 	public void setCreated_at_Account(Date created_at_Account) {
 		this.created_at_Account = created_at_Account;
-	}
-
-	public Set<Account_Role> getListAccount() {
-		return listAccount;
-	}
-
-	public void setListAccount(Set<Account_Role> listAccount) {
-		this.listAccount = listAccount;
 	}
 
 	public Set<InformationCar> getListAccount_InformationCar() {
@@ -267,6 +262,5 @@ public class Account {
 	public void setListAccount_Contract(Set<ContractInsurance> listAccount_Contract) {
 		this.listAccount_Contract = listAccount_Contract;
 	}
-
 	
 }

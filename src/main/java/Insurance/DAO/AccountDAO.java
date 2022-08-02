@@ -16,4 +16,5 @@ public interface AccountDAO {
 	public boolean deleteAccount(Integer idAccount);
 
 	public List<Account> searchAccountEmail(String email);
+
 }

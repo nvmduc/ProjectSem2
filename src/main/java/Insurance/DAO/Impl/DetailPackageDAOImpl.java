@@ -9,6 +9,7 @@ import org.hibernate.Session;
 
 import Insurance.DAO.DetailPackageDAO;
 import Insurance.Entities.DetailPackage;
+import Insurance.Entities.InsurancePackages;
 import Insurance.Util.HibernateUtil;
 
 public class DetailPackageDAOImpl implements DetailPackageDAO {
@@ -32,7 +33,21 @@ public class DetailPackageDAOImpl implements DetailPackageDAO {
 	public DetailPackage getDetailPackageById(Integer idDetailPackage) {
 		// TODO Auto-generated method stub
 		try {
-			DetailPackage detailPackage = ss.get(DetailPackage.class, "idDetailPackage");
+			DetailPackage detailPackage = ss.get(DetailPackage.class, idDetailPackage);
+			return detailPackage;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ss.close();
+		}
+		return null;
+	}
+	
+	@Override
+	public DetailPackage getByIdPackage(Integer idPackage) {
+		// TODO Auto-generated method stub
+		try {
+			DetailPackage detailPackage = ss.get(DetailPackage.class, idPackage);
 			return detailPackage;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -65,6 +80,9 @@ public class DetailPackageDAOImpl implements DetailPackageDAO {
 	@Override
 	public boolean updateDetailPackage(DetailPackage detailPackage) {
 		// TODO Auto-generated method stub
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        detailPackage.setCreated_at(date);
 		try {
 			ss.beginTransaction();
 			ss.update(detailPackage);

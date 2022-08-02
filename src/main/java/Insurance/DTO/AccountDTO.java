@@ -30,6 +30,8 @@ public class AccountDTO {
 	private String apartmentNumber;
 	@NotEmpty(message = "Zipcode is not emplty")
 	private String zipcode;
+	@NotNull(message = "Role is not null")
+	private Integer role;
 	private Integer statusAccount;
 	private Date created_at_Account;
 	public AccountDTO() {
@@ -46,8 +48,8 @@ public class AccountDTO {
 			@NotEmpty(message = "Wards is not emplty") String wards,
 			@NotEmpty(message = "Street is not emplty") String street,
 			@NotEmpty(message = "ApartmentNumber is not emplty") String apartmentNumber,
-			@NotEmpty(message = "Zipcode is not emplty") String zipcode, Integer statusAccount,
-			Date created_at_Account) {
+			@NotEmpty(message = "Zipcode is not emplty") String zipcode,
+			@NotNull(message = "Role is not null") Integer role, Integer statusAccount, Date created_at_Account) {
 		super();
 		this.idAccount = idAccount;
 		this.name = name;
@@ -62,6 +64,7 @@ public class AccountDTO {
 		this.street = street;
 		this.apartmentNumber = apartmentNumber;
 		this.zipcode = zipcode;
+		this.role = role;
 		this.statusAccount = statusAccount;
 		this.created_at_Account = created_at_Account;
 	}
@@ -143,6 +146,12 @@ public class AccountDTO {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
+	public Integer getRole() {
+		return role;
+	}
+	public void setRole(Integer role) {
+		this.role = role;
+	}
 	public Integer getStatusAccount() {
 		return statusAccount;
 	}
@@ -157,4 +166,5 @@ public class AccountDTO {
 	}
 	
 	
+
 }

@@ -43,6 +43,9 @@ public class InformationCar {
 	@NotEmpty(message = "Sea Of Control is emplty")
 	@Column(name = "seaOfControl")
 	private String seaOfControl;
+	@NotNull(message = "Seats is not null")
+	@Column(name = "seats")
+	private Integer seats;
 	@Column(name = "statusInformationCar")
 	private Integer statusInformationCar;
 	@Column(name = "created_at_InformationCar")
@@ -72,7 +75,8 @@ public class InformationCar {
 			@NotNull(message = "Year Of Manufacture is null") Integer yearOfManufacture,
 			@NotEmpty(message = "Frame Number is emplty") String frameNumber,
 			@NotEmpty(message = "Engine Number is emplty") String engineNumber,
-			@NotEmpty(message = "Sea Of Control is emplty") String seaOfControl, Integer statusInformationCar,
+			@NotEmpty(message = "Sea Of Control is emplty") String seaOfControl,
+			@NotNull(message = "Seats is not null") Integer seats, Integer statusInformationCar,
 			Date created_at_InformationCar, Account objAccount_InformationCar,
 			Set<DetailPackage> listlistDetailPackage_Detail, Set<OrderInsurance> listInformationCar_Order,
 			Set<ContractInsurance> listInformationCar_Contract) {
@@ -85,6 +89,7 @@ public class InformationCar {
 		this.frameNumber = frameNumber;
 		this.engineNumber = engineNumber;
 		this.seaOfControl = seaOfControl;
+		this.seats = seats;
 		this.statusInformationCar = statusInformationCar;
 		this.created_at_InformationCar = created_at_InformationCar;
 		this.objAccount_InformationCar = objAccount_InformationCar;
@@ -157,6 +162,14 @@ public class InformationCar {
 		this.seaOfControl = seaOfControl;
 	}
 
+	public Integer getSeats() {
+		return seats;
+	}
+
+	public void setSeats(Integer seats) {
+		this.seats = seats;
+	}
+
 	public Integer getStatusInformationCar() {
 		return statusInformationCar;
 	}
@@ -204,5 +217,6 @@ public class InformationCar {
 	public void setListInformationCar_Contract(Set<ContractInsurance> listInformationCar_Contract) {
 		this.listInformationCar_Contract = listInformationCar_Contract;
 	}
+
 
 }

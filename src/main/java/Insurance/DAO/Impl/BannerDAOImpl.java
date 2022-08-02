@@ -7,19 +7,20 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import Insurance.DAO.RoleDAO;
+import Insurance.DAO.BannerDAO;
+import Insurance.Entities.Account;
+import Insurance.Entities.Banner;
 import Insurance.Entities.InsurancePackages;
-import Insurance.Entities.Role;
 import Insurance.Util.HibernateUtil;
 
-public class RoleDAOImpl implements RoleDAO {
-	Session ss = HibernateUtil.getSessionFactory().openSession();
-	
+public class BannerDAOImpl implements BannerDAO{
+	Session ss = HibernateUtil. getSessionFactory().openSession();
+
 	@Override
-	public List<Role> getAllRole() {
+	public List<Banner> getAllBanner() {
 		// TODO Auto-generated method stub
 		try {
-			List list = ss.createQuery("from Role").list();
+			List list = ss.createQuery("from Banner").list();
 			return list;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -30,11 +31,11 @@ public class RoleDAOImpl implements RoleDAO {
 	}
 
 	@Override
-	public Role getRoleById(Integer idRole) {
+	public Banner getBannerById(Integer idBanner) {
 		// TODO Auto-generated method stub
 		try {
-			Role role = ss.get(Role.class, "idRole");
-			return role;
+			Banner banner = ss.get(Banner.class, idBanner);
+			return banner;
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
@@ -44,18 +45,19 @@ public class RoleDAOImpl implements RoleDAO {
 	}
 
 	@Override
-	public boolean insertRole(Role role) {
+	public boolean insertBanner(Banner banner) {
 		// TODO Auto-generated method stub
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        role.setCreated_at_Role(date);
+        banner.setCreated_at(date);
 		try {
 			ss.beginTransaction();
-			ss.save(role);
+			ss.save(banner);
 			ss.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			ss.getTransaction().rollback();
 		} finally {
 			ss.close();
@@ -64,14 +66,14 @@ public class RoleDAOImpl implements RoleDAO {
 	}
 
 	@Override
-	public boolean updateRole(Role role) {
+	public boolean updateBanner(Banner banner) {
 		// TODO Auto-generated method stub
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        role.setCreated_at_Role(date);
+        banner.setCreated_at(date);
 		try {
 			ss.beginTransaction();
-			ss.update(role);
+			ss.update(banner);
 			ss.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
@@ -84,13 +86,13 @@ public class RoleDAOImpl implements RoleDAO {
 	}
 
 	@Override
-	public boolean deleteRole(Integer idRole) {
+	public boolean deleteBanner(Integer idBanner) {
 		// TODO Auto-generated method stub
 		try {
 			ss.beginTransaction();
-			Integer id = ss.createQuery("delete from Role where idRole= :idRole").setParameter("idRole", idRole).executeUpdate();
+			Integer idB = ss.createQuery("update Banner set status = 0 where idBanner = :idBanner").setParameter("idBanner", idBanner).executeUpdate();
 			ss.getTransaction().commit();
-			if(id>0)
+			if (idB>0)
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -102,21 +104,21 @@ public class RoleDAOImpl implements RoleDAO {
 	}
 
 	@Override
-	public List<Role> searchRoleName(String nameRole) {
+	public List<Banner> searchBanner(String nameBanner) {
 		// TODO Auto-generated method stub
 		try {
-			if (nameRole == null || nameRole.length() == 0) {
-				nameRole = "%";
+			if (nameBanner == null || nameBanner.length() == 0) {
+				nameBanner = "%";
 			} else {
-				nameRole = "%" + nameRole + "%";
+				nameBanner = "%" + nameBanner + "%";
 			}
-			List list = ss.createQuery("from Role where nameRole like :nameRole")
-					.setParameter("nameRole", nameRole).list();
+			List list = ss.createQuery("from Banner where nameBanner like :nameBanner")
+					.setParameter("nameBanner", nameBanner).list();
 			return list;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return null;
 	}
-
+	
 }

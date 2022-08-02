@@ -16,4 +16,6 @@ public interface DetailPackageDAO {
 	public boolean deleteDetailPackage(Integer idDetailPackage);
 
 	public List<DetailPackage> searchDetailPackageDescription(String descriptionPackage);
+
+	public DetailPackage getByIdPackage(Integer idPackage);
 }

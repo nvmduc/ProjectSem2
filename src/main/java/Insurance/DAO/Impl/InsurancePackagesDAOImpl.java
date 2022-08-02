@@ -32,10 +32,13 @@ public class InsurancePackagesDAOImpl implements InsurancePackagesDAO {
 	public InsurancePackages getInsurancePackagesById(Integer idPackage) {
 		// TODO Auto-generated method stub
 		try {
-			InsurancePackages insurancePackage = ss.get(InsurancePackages.class, "idPackage");
+			ss.beginTransaction();
+			InsurancePackages insurancePackage = (InsurancePackages) ss.createQuery("from InsurancePackages where idPackage = :idPackage").setParameter("idPackage", idPackage).uniqueResult();
+			ss.getTransaction().commit();
 			return insurancePackage;
 		} catch (Exception e) {
 			// TODO: handle exception
+			ss.getTransaction().rollback();
 		} finally {
 			ss.close();
 		}
@@ -55,6 +58,7 @@ public class InsurancePackagesDAOImpl implements InsurancePackagesDAO {
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			ss.getTransaction().rollback();
 		} finally {
 			ss.close();
@@ -65,6 +69,9 @@ public class InsurancePackagesDAOImpl implements InsurancePackagesDAO {
 	@Override
 	public boolean updateInsurancePackages(InsurancePackages insurancePackage) {
 		// TODO Auto-generated method stub
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        insurancePackage.setCreated_at_Package(date);
 		try {
 			ss.beginTransaction();
 			ss.update(insurancePackage);
@@ -84,8 +91,9 @@ public class InsurancePackagesDAOImpl implements InsurancePackagesDAO {
 		// TODO Auto-generated method stub
 		try {
 			ss.beginTransaction();
-			ss.delete(getInsurancePackagesById(idPackage));
+			Integer idP = ss.createQuery("update InsurancePackages set statusPackage = 0 where idPackage= :idPackage").setParameter("idPackage", idPackage).executeUpdate();
 			ss.getTransaction().commit();
+			if (idP>0)
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception

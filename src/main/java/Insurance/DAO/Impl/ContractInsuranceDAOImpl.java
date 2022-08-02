@@ -31,7 +31,7 @@ public class ContractInsuranceDAOImpl implements ContractInsuranceDAO {
 	public ContractInsurance getContractInsuranceById(String idContract) {
 		// TODO Auto-generated method stub
 		try {
-			ContractInsurance contract = ss.get(ContractInsurance.class, "idContract");
+			ContractInsurance contract = ss.get(ContractInsurance.class, idContract);
 			return contract;
 		} catch (Exception e) {
 			// TODO: handle exception

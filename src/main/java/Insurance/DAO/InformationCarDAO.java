@@ -16,4 +16,6 @@ public interface InformationCarDAO {
 	public boolean deleteInformationCar(Integer idInformationCar);
 
 	public List<InformationCar> searchInformationCarCompany(String carCompany);
+
+	public List<InformationCar> getCarByAccountId(Integer idAccount);
 }
